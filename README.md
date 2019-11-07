@@ -8,9 +8,9 @@ This is the complex PSD to WordPress hiring assignment required by rtCamp in ord
 
 1. **Owl Carousel**
 
-This is a jquery carousel plugin which is used for many sliders in the homepage.
+     -This is a jquery carousel plugin which is used for many sliders in the homepage.
 
-*Plugin Link* - https://owlcarousel2.github.io/OwlCarousel2/
+     -*Plugin Link* - https://owlcarousel2.github.io/OwlCarousel2/
 
 2. FontAwesome Icon Library
 
