@@ -53,6 +53,21 @@ This is the complex PSD to WordPress hiring assignment required by rtCamp in ord
 
    - *Plugin Link* - https://wordpress.org/plugins/custom-post-type-ui/
    
+
+8. **OpenWeatherMap API**
+
+   - OpenWeatherMap API was used to fetch weather data of a specified city.
+
+   - *API Link* - https://openweathermap.org/
+   
+
+7. **Google Geocoding API & TimeZone API**
+
+   - Geocoding & timezone api were used in a widget to get the current date & time of a city specified in the backend.
+
+   - *API Link* - https://developers.google.com/maps/documentation/timezone/start
+   - *API Link* - https://developers.google.com/maps/documentation/geocoding/start
+   
    
    
 ## Getting Started
@@ -299,7 +314,8 @@ add_action( 'widgets_init', function(){
 
 The Ajax Url was first defined in the functions.php file.
 
-> add_action('wp_head', 'myplugin_ajaxurl');
+``` 
+add_action('wp_head', 'myplugin_ajaxurl');
 
 function myplugin_ajaxurl() {
 
@@ -307,3 +323,87 @@ function myplugin_ajaxurl() {
            var ajaxurl = "' . admin_url('admin-ajax.php') . '";
          </script>';
 }
+```
+
+Using Jquery and PHP, an ajax function was created to allow navigating through the News posts, 5 posts at a time.
+
+
+## Weather widget
+
+OpenWeathermap api was used to fetch the weather data for 3 days using the city ID specified in the back end. Since the weather icons seen at the PSD were not provided, custom icons are used to display the appropriate weather.
+
+```
+<?php
+
+$cityId = $instance['city_id'] ;
+
+$apiKey = "Your_api_key";
+
+$googleApiUrl = "https://api.openweathermap.org/data/2.5/forecast?id=" . $cityId . "&lang=en&units=metric&APPID=" . $apiKey . "&cnt=24" ;
+
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_URL, $googleApiUrl);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+curl_setopt($ch, CURLOPT_VERBOSE, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+$response = curl_exec($ch);
+
+curl_close($ch);
+$data = json_decode($response);
+
+
+?>
+
+<span class="weather_single_day_stat"> <?php echo $data->list[5]->weather[0]->description ; ?> </span>
+<span class="weather_single_day_temp"> <?php echo $data->list[5]->main->temp ; ?> °C</span>
+```
+
+
+## Date Time widget
+
+The Geocoding api was used to fetch the latitude & longitudinal values of the specified city. 
+
+```
+$address = $cityNamer ;
+			 
+$api_url = "https://maps.googleapis.com/maps/api/geocode/json?address={$address}&key=AIzaSyDBDSDw19iYcE3LEBbmScok9xGFV0RVMrE";
+
+$resp_json = file_get_contents($api_url);
+
+$resp = json_decode($resp_json, true);
+
+if( $resp['status']=='OK' ) {	// If city is valid from Geocoding API response
+     
+    $lati = $resp['results'][0]['geometry']['location']['lat'] ;
+    $longi = $resp['results'][0]['geometry']['location']['lng'] ;
+
+}
+```
+
+Once the coordinates were received, they were fed to the timezone api to get the current date & time of the city specified in the backend.
+
+
+## Footer link shortcode
+
+The shortcode was created using the following code to achieve the desired result.
+
+```
+// Footer Custom Link Shortcode
+
+
+function footer_link_shortcode( $atts, $content = null ) {
+
+    $a = shortcode_atts( array(
+        'url' => '',
+        'title'  =>  ''
+    ), $atts );
+
+    return '<a href="' . esc_attr($a['url']) . '" class="footer_shortcody_linker">' . esc_attr($a['title']) . '</a>' ;
+
+}
+
+add_shortcode( 'rt-link', 'footer_link_shortcode' );
+```
