@@ -2,6 +2,9 @@
 **Complex PSD to WordPress Assignment**
 
 
+Website link - http://davincidesigns.site/rtcamp/
+
+
 This is the complex PSD to WordPress hiring assignment required by rtCamp in order to apply for the WP Developer position.
 
 ## 3rd Party Resources
@@ -51,11 +54,43 @@ This is the complex PSD to WordPress hiring assignment required by rtCamp in ord
    - *Plugin Link* - https://wordpress.org/plugins/custom-post-type-ui/
    
    
+## Getting Started
+   
+   Initially all the resource files required by the project scope were loaded into the template. Right after the HTML markup was made for all the required sections, columns and content. Bootstrap grid played an important role here. 
+   
+   Once the markup was complete, using CSS, the website was styled to identically match the PSD provided. 
+  
+  
+## HomePage Slider
 
-   
-   
-   
-   
+A custom field (Text Area) was create on the Theme options page where the user is supposed to enter each youtube video id in a new line. Once the settings are saved, the string is split using new lines to get each video ID into an array which will be used in the youtube video slider.
+
+```
+<?php
+
+echo '<div class="youtube_slider_parent owl-carousel owl-theme">' ;	// Youtube Slider 
+
+$links = get_field('theme_youtube_slider_links' , 'option' ) ;
+$links = preg_split("/\r\n|\n|\r/", $links) ;
+
+foreach( $links as $link ): 
+
+	?>
+
+	<a class="youtube_slider_single_item thickbox" href="https://www.youtube.com/embed/<?php echo $link ; ?>?rel=0?KeepThis=true&TB_iframe=true&height=400&width=600">	<!-- youtube single item -->
+	
+		<img class="youtube_slider_single_item_img" src="<?php echo 'https://img.youtube.com/vi/' . $link . '/hqdefault.jpg' ; ?>">
+		<img class="youtube_slider_single_item_icon" src="<?php echo get_stylesheet_directory_uri() . '/lib/play.png' ; ?>">
+
+	</a>	<!-- youtube single item -->
+
+	<?php
+
+endforeach; 
+
+echo '</div>' ;	// Youtube Slider 
+
+?>
    
    
    
