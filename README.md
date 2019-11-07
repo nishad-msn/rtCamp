@@ -91,7 +91,101 @@ endforeach;
 echo '</div>' ;	// Youtube Slider 
 
 ?>
-   
+```
+
+The classname ***thickbox*** is used as a class selector for the thickbox script. The ***href*** attribute is used for the thickbox script to identify what to display.
+
+```
+// Youtube Slider Owl Carousel Init
+
+$('.youtube_slider_parent.owl-carousel').owlCarousel({
+    loop:false,
+    margin: 10,
+    nav: true,
+    dots: false,
+    autoplay:true,
+    autoplayTimeout: 10000,
+    autoplayHoverPause:true,
+    navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
+    responsiveClass:true,
+	responsive:{
+		0:{
+	        items:1
+	    },
+	    300:{
+	        items:2
+	    },
+	    600:{
+	        items:3
+	    },
+	    800:{
+	        items:4
+	    },
+	    1000:{
+	        items:5
+	    }
+	}
+})
+
+```
+
+## Glimpses of Exhibition Section
+
+A custom post type "Exhibitions" was created. The items displayed in this section are pulled from the "Exhibition" posts usin wp_query.
+
+```
+<?php 	// Custom Post Type Thumbnails
+
+	$args = array(  
+			'post_type' => 'exhibition',
+			'post_status' => 'publish',
+			'posts_per_page' => 8, 
+			'order' => 'DESC',
+			'orderby' => 'date', 
+			) ;
+
+	$new_query = new WP_Query( $args ); 
+
+	?>
+
+	<h3 class="colored_title">Glimpses of Exhibition</h3>
+
+	<div class="row">	<!-- Row -->
+
+	<?php
+	    
+	while ( $new_query->have_posts() ) : 
+
+		$new_query->the_post(); 
+
+		?>
+
+		<div class="col-md-3 col-xs-6">
+		
+			<a class="hp_glimpses_single_box" href="<?php the_permalink() ; ?>">
+				<img src="<?php echo get_the_post_thumbnail_url(get_the_ID(),'medium') ; ?>">
+			</a>
+
+			<a href="<?php the_permalink() ; ?>" class="hp_glimpses_single_linker"><?php the_title() ; ?></a>
+
+		</div>
+
+		<?php
+
+	endwhile;
+
+	?>
+
+	</div>	<!-- Row -->
+
+	<div class="hruler"></div>
+
+	<?php
+
+	wp_reset_postdata(); 
+
+?>	<!-- Custom Post Type Thumbnails -->
+```
    
    
    
