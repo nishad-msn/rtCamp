@@ -407,3 +407,15 @@ function footer_link_shortcode( $atts, $content = null ) {
 
 add_shortcode( 'rt-link', 'footer_link_shortcode' );
 ```
+
+
+
+## Final Result
+
+A fully functioning , fully responsive WordPress website developed as per the original PSD file provided :) 
+
+Please let me know if you have any questions.
+
+
+
+# Thank you
