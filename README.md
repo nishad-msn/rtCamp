@@ -8,24 +8,24 @@ This is the complex PSD to WordPress hiring assignment required by rtCamp in ord
 
 1. **Owl Carousel**
 
-     -This is a jquery carousel plugin which is used for many sliders in the homepage.
+     - This is a jquery carousel plugin which is used for many sliders in the homepage.
 
-     -*Plugin Link* - https://owlcarousel2.github.io/OwlCarousel2/
+     - *Plugin Link* - https://owlcarousel2.github.io/OwlCarousel2/
 
 2. FontAwesome Icon Library
 
-This is a library of vector icons.
+   - This is a library of vector icons.
 
-*Resource Link* - https://fontawesome.com/
+   - *Resource Link* - https://fontawesome.com/
 
 3. Bootstrap Grid System
 
-As required by the assignment, the grid system of the bootstrap is used throughout the website.
+   - As required by the assignment, the grid system of the bootstrap is used throughout the website.
 
-*Resource Link* - https://getbootstrap.com/
+   - *Resource Link* - https://getbootstrap.com/
 
 4. Thickbox
 
-As required by the assignment, thickbox is used for the YouTube video sliders
+   - As required by the assignment, thickbox is used for the YouTube video sliders
 
-*Plugin Link* - http://codylindley.com/thickbox/
+   - *Plugin Link* - http://codylindley.com/thickbox/
